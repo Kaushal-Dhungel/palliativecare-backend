@@ -105,7 +105,7 @@ CHANNEL_LAYERS = {
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-if DEBUG:
+if DEBUG == False:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
