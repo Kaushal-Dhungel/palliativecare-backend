@@ -62,9 +62,15 @@ class ProfileFilterView(APIView):
 # for your profile
 class UserProfileView(APIView):
     def get(self,request,format = None):
-        profile = Profile.objects.get(user = request.user.id)
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data)
+        try:
+            profile = Profile.objects.get(user = request.user.id)
+            serializer = ProfileSerializer(profile)
+            return Response(serializer.data,status=status.HTTP_200_OK)
+
+        except Exception as e:
+            print(e)
+            return Response([], status=status.HTTP_400_BAD_REQUEST)
+
 
     #  this is not to create the profile but for adding/removing the display pic, profile gets created automatically
     def post(self,request,*args, **kwargs):
