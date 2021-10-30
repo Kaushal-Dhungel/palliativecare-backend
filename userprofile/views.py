@@ -37,21 +37,20 @@ class ProfileView(APIView):
 # search results and filter
 class ProfileFilterView(APIView):
 
-    def apply_filter(self,queryset,identity = "",ethnicity="",religion="",language="",title = ""):
-        queryset = queryset.filter(identity__icontains=identity,ethnicity__icontains=ethnicity,
-            religion__icontains=religion,languages__icontains=language,title__icontains=title)
+    def apply_filter(self,queryset,identity = "",language="",title = ""):
+        queryset = queryset.filter(identity__icontains=identity,
+            languages__icontains=language,title__icontains=title)
         return queryset
 
     def get(self,request,location):
         identity = request.query_params.get('identity')
-        ethnicity = request.query_params.get('ethnicity')
-        religion = request.query_params.get('religion')
         language = request.query_params.get('language')
         title = request.query_params.get('title')
 
         try:
             all_profiles = Profile.objects.filter(location_customised = location)
-            queryset = self.apply_filter(all_profiles,identity,ethnicity,religion,language,title)
+            print(all_profiles)
+            queryset = self.apply_filter(all_profiles,identity,language,title)
             serializer = ProfileSerializer(queryset,many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 

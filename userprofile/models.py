@@ -12,16 +12,6 @@ class Profile(models.Model):
         ('LGBTQ+', 'LGBTQ+'),
     )
 
-    ETHNICITY = (
-        ('Asian','Asian'),
-        ('South Asian','South Asian'),
-        ('Black','Black'),
-        ('American Biracial','American Biracial'),
-        ('White','White'),
-        ('Jew','Jew'),
-        ('Arab','Arab'),
-    )
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200, blank=True)
     last_name = models.CharField(max_length=200, blank=True)
@@ -38,10 +28,8 @@ class Profile(models.Model):
     twitter_link = models.CharField(max_length=200, blank=True)
     instagram_link = models.CharField(max_length=200, blank=True)
     clinic_name = models.CharField(max_length=200, blank=True)
-    ethnicity = models.CharField(max_length=30, choices = ETHNICITY, blank=True)
     education = models.CharField(max_length=400, blank=True)
     languages = models.CharField(max_length=400, blank=True)
-    religion = models.CharField(max_length=200, blank=True)
     native_country = models.CharField(max_length=200, blank=True)
     working_hours = models.CharField(max_length=200, blank=True)
     slug = models.SlugField(unique=True, blank=True)
